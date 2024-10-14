@@ -7,8 +7,8 @@ const cookieOptions = {
   path: "/",
   httpOnly: true,
   maxAge: 30 * 24 * 24 * 60 * 1000,
-  sameSite: true,
-  secure: true,
+  sameSite: "none",
+  secure: false,
 };
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -67,4 +67,13 @@ const logoutUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Successfully logged out user" });
 });
 
-module.exports = { registerUser, loginUser, logoutUser };
+const getUserProfile = asyncHandler(async (req, res) => {
+  const user = req.user;
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json({ message: "user not found" });
+  }
+});
+
+module.exports = { registerUser, loginUser, logoutUser, getUserProfile };

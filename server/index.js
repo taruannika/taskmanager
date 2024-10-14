@@ -45,6 +45,8 @@ app.use((err, req, res, next) => {
     return res.status(400).json({ message: messages[0] });
   } else if (err.name === "MongoServerError" && err.code === 11000) {
     return res.status(400).json({ message: "User already exists" });
+  } else if (err.name === "JsonWebTokenError") {
+    return res.status(401).json({ message: "Not authorized" });
   }
   res.status(500).json({ message: "Server error" });
 });
