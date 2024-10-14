@@ -35,7 +35,7 @@ app.use(cookieParser());
 //#endregion
 
 //#region Routes
-app.use("/api", userRoutes);
+app.use("/api/auth/", userRoutes);
 //#endregion
 
 //#region Error Handler
